@@ -70,6 +70,13 @@ __pycache__/
 .venv/
 venv/
 
+# Umgebungsvariablen und sensible Daten
+.env
+.env.*
+*.env
+!.env.example
+!.env.template
+
 # Ausnahmen für MCP-Entwicklung
 !venv/lib/python3.10/site-packages/mcp/server/fastmcp/server.py
 !venv/lib/python3.10/site-packages/mcp/server/fastmcp/__init__.py

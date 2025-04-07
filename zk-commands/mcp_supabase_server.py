@@ -59,13 +59,9 @@ except ImportError as e:
 
 def get_supabase_client() -> Client:
     """Create and return a Supabase client using environment variables"""
-    # Hardcoded values as fallback (from the .env file we saw earlier)
-    default_url = "https://slvxtnfmktzjgomwqmxk.supabase.co"
-    default_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNsdnh0bmZta3R6amdvbXdxbXhrIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MzcyMTA3NCwiZXhwIjoyMDU5Mjk3MDc0fQ.ROWWLDUjh_L9jgu2NlFZHxCH2QDF2X2CuFbLk-7BVIE"
-    
-    # Try to get from environment, fall back to defaults if needed
-    supabase_url = os.getenv("SUPABASE_URL", default_url)
-    supabase_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY", default_key)
+    # Get credentials from environment variables
+    supabase_url = os.getenv("SUPABASE_URL")
+    supabase_key = os.getenv("SUPABASE_SERVICE_ROLE_KEY")
     
     # Check if the URL looks valid (basic check)
     if not supabase_url.startswith("http"):
