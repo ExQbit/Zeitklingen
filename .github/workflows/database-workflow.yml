@@ -1,0 +1,129 @@
+name: Zeitklingen Datenbankautomatisierung
+
+# Dieser Workflow wird nur manuell ausgelöst und erfordert eine Bestätigung
+on:
+  # Manuelles Auslösen über die GitHub-Oberfläche
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Umgebung für die Datenbanksynchronisierung'
+        required: true
+        default: 'dev'
+        type: choice
+        options:
+          - dev
+          - staging
+          - prod
+      dry_run:
+        description: 'Nur Änderungen anzeigen (ohne Anwendung)'
+        required: true
+        default: true
+        type: boolean
+      confirm_changes:
+        description: 'Änderungen automatisch committen?'
+        required: true
+        default: false
+        type: boolean
+
+jobs:
+  # Der erste Job prüft, ob Änderungen notwendig sind
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check.outputs.has_changes }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install supabase python-dotenv
+      
+      - name: Set up environment variables
+        run: |
+          # Umgebungsvariablen aus den Secrets laden
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+          echo "SUPABASE_URL_DEV=${{ secrets.SUPABASE_URL_DEV }}" >> .env
+          echo "SUPABASE_KEY_DEV=${{ secrets.SUPABASE_KEY_DEV }}" >> .env
+          echo "SUPABASE_URL_STAGING=${{ secrets.SUPABASE_URL_STAGING }}" >> .env
+          echo "SUPABASE_KEY_STAGING=${{ secrets.SUPABASE_KEY_STAGING }}" >> .env
+      
+      - name: Run Database Sync (Dry Run)
+        id: check
+        run: |
+          chmod +x ./zk-commands/update-database.sh
+          # Führt das Skript im Dry-Run-Modus aus
+          ./zk-commands/update-database.sh --env ${{ github.event.inputs.environment }} --dry-run --verbose
+          # Prüft, ob Änderungen vorhanden sind
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "Keine Änderungen an der Datenbank erforderlich."
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Änderungen an der Datenbank erforderlich."
+            git diff --stat
+          fi
+
+  # Der zweite Job aktualisiert die Datenbank, wenn Änderungen erforderlich sind
+  update-database:
+    needs: check-changes
+    if: needs.check-changes.outputs.has_changes == 'true' && github.event.inputs.dry_run == 'false'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install supabase python-dotenv
+      
+      - name: Set up environment variables
+        run: |
+          # Umgebungsvariablen aus den Secrets laden
+          echo "SUPABASE_URL=${{ secrets.SUPABASE_URL }}" >> .env
+          echo "SUPABASE_KEY=${{ secrets.SUPABASE_KEY }}" >> .env
+          echo "SUPABASE_URL_DEV=${{ secrets.SUPABASE_URL_DEV }}" >> .env
+          echo "SUPABASE_KEY_DEV=${{ secrets.SUPABASE_KEY_DEV }}" >> .env
+          echo "SUPABASE_URL_STAGING=${{ secrets.SUPABASE_URL_STAGING }}" >> .env
+          echo "SUPABASE_KEY_STAGING=${{ secrets.SUPABASE_KEY_STAGING }}" >> .env
+      
+      - name: Update Database
+        run: |
+          chmod +x ./zk-commands/update-database.sh
+          # Führt das Skript aus
+          ./zk-commands/update-database.sh --env ${{ github.event.inputs.environment }} --verbose
+      
+      - name: Show Changes
+        run: |
+          git diff --stat
+          echo "Änderungen an der Datenbank wurden vorgenommen."
+          echo "Diese Änderungen werden nur committet, wenn Sie dies bestätigt haben."
+      
+      - name: Commit Changes
+        if: github.event.inputs.confirm_changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automatische Datenbankaktualisierung [skip ci]"
+          file_pattern: "Assets/ScriptableObjects/**/*.json"
+          commit_user_name: "Zeitklingen DB Bot"
+          commit_user_email: "db-bot@zeitklingen.example.com"
+          commit_author: "Zeitklingen DB Bot <db-bot@zeitklingen.example.com>"
+          
+      - name: Manual Approval Required
+        if: github.event.inputs.confirm_changes != 'true'
+        run: |
+          echo "::warning::Änderungen wurden NICHT automatisch committet."
+          echo "::warning::Bitte überprüfen Sie die Änderungen und committen Sie sie manuell oder führen Sie den Workflow erneut mit 'Änderungen automatisch committen' = true aus."

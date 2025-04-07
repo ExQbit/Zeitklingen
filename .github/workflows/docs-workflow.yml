@@ -1,0 +1,94 @@
+name: Zeitklingen Dokumentationsautomatisierung
+
+# Dieser Workflow wird nur manuell ausgelöst und erfordert eine Bestätigung
+on:
+  # Manuelles Auslösen über die GitHub-Oberfläche
+  workflow_dispatch:
+    inputs:
+      check_docs:
+        description: 'Dokumentationsprüfung durchführen?'
+        required: true
+        default: 'true'
+        type: boolean
+      confirm_changes:
+        description: 'Änderungen automatisch committen?'
+        required: true
+        default: 'false'
+        type: boolean
+
+jobs:
+  # Der erste Job prüft, ob Änderungen notwendig sind
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      has_changes: ${{ steps.check.outputs.has_changes }}
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Run Documentation Update (Dry Run)
+        id: check
+        run: |
+          chmod +x ./zk-commands/update-docs.sh
+          # Führt das Skript aus, aber ohne Änderungen zu speichern
+          ./zk-commands/update-docs.sh --dry-run
+          # Prüft, ob Änderungen vorhanden sind
+          if git diff --quiet; then
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "Keine Änderungen an der Dokumentation erforderlich."
+          else
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Änderungen an der Dokumentation erforderlich."
+            git diff --stat
+          fi
+
+  # Der zweite Job aktualisiert die Dokumentation, wenn Änderungen erforderlich sind
+  update-docs:
+    needs: check-changes
+    if: needs.check-changes.outputs.has_changes == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+      
+      - name: Update Documentation
+        run: |
+          chmod +x ./zk-commands/update-docs.sh
+          # Führt das Skript mit oder ohne Dokumentationsprüfung aus
+          if [ "${{ github.event.inputs.check_docs }}" == "true" ]; then
+            ./zk-commands/update-docs.sh --check
+          else
+            ./zk-commands/update-docs.sh
+          fi
+      
+      - name: Show Changes
+        run: |
+          git diff --stat
+          echo "Änderungen an der Dokumentation wurden vorgenommen."
+          echo "Diese Änderungen werden nur committet, wenn Sie dies bestätigt haben."
+      
+      - name: Commit Changes
+        if: github.event.inputs.confirm_changes == 'true'
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Automatische Dokumentationsaktualisierung [skip ci]"
+          file_pattern: "README.md docs/**/*.md"
+          commit_user_name: "Zeitklingen Docs Bot"
+          commit_user_email: "docs-bot@zeitklingen.example.com"
+          commit_author: "Zeitklingen Docs Bot <docs-bot@zeitklingen.example.com>"
+          
+      - name: Manual Approval Required
+        if: github.event.inputs.confirm_changes != 'true'
+        run: |
+          echo "::warning::Änderungen wurden NICHT automatisch committet."
+          echo "::warning::Bitte überprüfen Sie die Änderungen und committen Sie sie manuell oder führen Sie den Workflow erneut mit 'Änderungen automatisch committen' = true aus."

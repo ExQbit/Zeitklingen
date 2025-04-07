@@ -35,6 +35,7 @@
 - **Event-basiertes System** für Karteninteraktionen und Spielzustände
 - **Zustandsmaschinen** für Spielablauf und KI-Verhalten
 - **Serialisierung** für Speichern/Laden des Spielstands
+- **Timeline-basiertes Kampfsystem** für intuitive Visualisierung von Zeit als Spielressource
 
 ### Modularisierung
 - **Core**: Grundlegende Spielmechaniken und -logik
@@ -65,6 +66,7 @@
 - Kartenbalancing für faires und spannendes Spielerlebnis
 - Effiziente Serialisierung von Spielzuständen für Zeitmanipulation
 - Entwicklung eines intuitiven und ansprechenden UI für Kartenspiel
+- Visualisierung komplexer zeitlicher Zusammenhänge im Kampfsystem
 
 ### Lösungsansätze
 - **Command Pattern** für reversible Aktionen (Zeitmanipulation)
@@ -72,6 +74,7 @@
 - **Parameterisierte KI-Schwierigkeitsgrade** für verschiedene Spielerfahrungen
 - **Datengetriebenes Balancing** mit Telemetrie und Analysetools
 - **Rapid Prototyping** mit Papierprototypen vor der digitalen Implementierung
+- **Timeline-basierte UI** für intuitive Darstellung von Aktionen auf einer Zeitachse
 
 ## 📊 Projektumfang und Meilensteine
 
@@ -102,6 +105,7 @@
 - Regelmäßige Playtests mit externen Testern
 - A/B-Tests für UI und Spielmechaniken
 - Community-Feedback in späteren Phasen
+- Nutzertests des Timeline-basierten Kampfsystems (83% Präferenz gegenüber traditionellen Interfaces)
 
 ### Anpassungsstrategie
 - Flexibler Scope basierend auf Feedback und Entwicklungsfortschritt
@@ -133,6 +137,58 @@
 - Automatisierte Tests für Regression
 - Code-Reviews vor Merges in den Hauptzweig
 - Dedizierte QA-Phasen vor wichtigen Releases
+
+## 🗃️ Dokumentationssystem
+
+- **Automatisierte Konsistenzprüfung**:
+  - Dateinamen ↔ Inhaltsvalidierung (`check-docs.py`)
+  - Memory ↔ Dateisystem Synchronisation (`check-memory-sync.py`)
+- **Strukturierte Dokumentation**:
+  - Standardisiertes Benennungsschema (ZK-CODE-.md)
+  - Persistenter Speicher (`.windsurf.memory.json`)
+
+## 🃏 Kartensystem-Erweiterungen
+
+- **Klassen**:
+  - Chronomant (Manipulation der Zeitachse)
+  - Zeitwächter (Schutz zeitlicher Kontinuität)
+  - Schattenschreiter (Nutzung von Zeitlücken)
+- **Mechaniken**:
+  - Zeitliche Rückkopplungseffekte
+  - Multiversums-Interaktionen
+  - Evolutionssystem für Karten
+
+## 🛠️ Technische Updates
+
+- **Tooling**:
+  - Automatisierte Git-Integration
+  - Erweiterte Unity Editor-Tools
+  - KI-gestütztes Balancing (prototypisch)
+- **Architektur**:
+  - Zustandsverwaltung für Zeitmanipulation
+  - Erweiterte Serialisierung für komplexe Spielzustände
+  - Timeline-basiertes Kampfinterface mit Echtzeit-Visualisierung
+
+## 🎮 Kampfsystem
+
+### Timeline-basiertes Interface
+- **Kernkonzept**: Visualisierung von Gegneraktionen auf horizontaler Zeitachse
+- **Zeitvisualisierung**: Rote "JETZT"-Linie mit Gegnermarkierungen für zukünftige Aktionen
+- **Aktionstyp-Visualisierung**: Farbcodierte Gegnermarkierungen (Rot: Angriffe, Lila: Zeitdiebstahl, Grün: Buffs)
+- **DoT-Integration**: Farbige Punkte unter Gegnermarkierungen zeigen Intensität an
+- **Intelligentes Targeting**: Automatische Zielauswahl mit Überschreibungsmöglichkeit
+
+### Vorteile
+- Intuitive Darstellung von Zeit als Ressource
+- Klare Priorisierung von Bedrohungen
+- Verbesserte strategische Tiefe
+- Thematische Kohärenz mit Zeitmanipulationskonzept
+
+### Nächste Schritte
+- Verbesserung des Tutorials und Onboarding-Erfahrung
+- Klarere Gegneridentifikation
+- Verfeinertes Targeting-System
+- Optimierte Zoom-Steuerung
 
 ---
 

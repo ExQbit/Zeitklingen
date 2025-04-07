@@ -59,3 +59,24 @@ crashlytics-build.properties
 
 # Windsurf spezifische Dateien
 .windsurfrules
+
+# iCloud-spezifische Dateien
+*.icloud
+
+# Python-Umgebungen & Caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Ausnahmen für MCP-Entwicklung
+!venv/lib/python3.10/site-packages/mcp/server/fastmcp/server.py
+!venv/lib/python3.10/site-packages/mcp/server/fastmcp/__init__.py
+!venv/lib/python3.10/site-packages/mcp/server/fastmcp/tools/*.py
+
+# Backup-Dateien
+*.swp
+*.tmp
+*.bak
+*.orig

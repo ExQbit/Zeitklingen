@@ -1,0 +1,38 @@
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "node",
+      "args": ["dist/index.js", "/Users/exqbitmac/Library/Mobile Documents/com~apple~CloudDocs/Zeitklingen"],
+      "workingDirectory": "/Users/exqbitmac/Tools/mcp-servers/src/filesystem",
+      "description": "Lokaler Zugriff auf das Zeitklingen-Dateisystem"
+    },
+    "brave-search": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-brave-search"
+      ],
+      "env": {
+        "BRAVE_API_KEY": "BSAVpktSdXY7zXxdgZ3fcEquXUZ4E1G"
+      },
+      "description": "Brave Search Tool für Web- und lokale Suche"
+    },
+    "git": {
+      "command": "/Users/exqbitmac/Library/Mobile Documents/com~apple~CloudDocs/Zeitklingen/venv/bin/python",
+      "args": [
+        "src/mcp_server_git/main.py",
+        "/Users/exqbitmac/Library/Mobile Documents/com~apple~CloudDocs/Zeitklingen"
+      ],
+      "workingDirectory": "/Users/exqbitmac/Tools/mcp-servers/src/git",
+      "description": "Git Tool für Zeitklingen Repo"
+    },
+    "memory": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
+      "description": "Persistentes Gedächtnis für den AI-Assistenten"
+    }
+  }
+}

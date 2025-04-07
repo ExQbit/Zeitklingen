@@ -1,0 +1,148 @@
+{
+  "entries": [
+    {
+      "id": "zeitklingen-wiki",
+      "source": "file",
+      "path": "./zeitklingen-wiki.md",
+      "description": "Regelwerk und Mechaniken für das Kartenspiel Zeitklingen"
+    },
+    {
+      "id": "zk-dun-tut-comp",
+      "source": "file",
+      "path": "./docs/ZK-DUN-TUT-COMP-.md",
+      "description": "Dungeon-Tutorial-Komponenten"
+    },
+    {
+      "id": "zk-time",
+      "source": "file",
+      "path": "./docs/ZK-TIME-.md",
+      "description": "Zeitsystem-Mechaniken"
+    },
+    {
+      "id": "zk-test-comp",
+      "source": "file",
+      "path": "./docs/ZK-TEST-COMP-.md",
+      "description": "Test-Komponenten und Debugging-Logik"
+    },
+    {
+      "id": "zk-dun-mech-comp",
+      "source": "file",
+      "path": "./docs/ZK-DUN-MECH-COMP-.md",
+      "description": "Mechaniken für Dungeon-Karten"
+    },
+    {
+      "id": "zk-class-mage-cards",
+      "source": "file",
+      "path": "./docs/ZK-CLASS-MAGE-CARDS-.md",
+      "description": "Chronomant-Kartenübersicht"
+    },
+    {
+      "id": "zk-asset-comp",
+      "source": "file",
+      "path": "./docs/ZK-ASSET-COMP-.md",
+      "description": "Assetstruktur des Projekts"
+    },
+    {
+      "id": "zk-proj-comp",
+      "source": "file",
+      "path": "./docs/ZK-PROJ-COMP-.md",
+      "description": "Projektübersicht Zeitklingen"
+    },
+    {
+      "id": "zk-ref-mat-comp",
+      "source": "file",
+      "path": "./docs/ZK-REF-MAT-COMP-.md",
+      "description": "Referenzmaterialien und Komponenten"
+    },
+    {
+      "id": "zk-multip-comp",
+      "source": "file",
+      "path": "./docs/ZK-MULTIP-COMP-.md",
+      "description": "Multiperspektiven-Framework"
+    },
+    {
+      "id": "zk-class-mage-comp",
+      "source": "file",
+      "path": "./docs/ZK-CLASS-MAGE-COMP-.md",
+      "description": "Chronomant-Klassenbeschreibung"
+    },
+    {
+      "id": "zk-class-war-cards-comp",
+      "source": "file",
+      "path": "./docs/ZK-CLASS-WAR-CARDS-COMP-.md",
+      "description": "Zeitwächter-Kartenbeschreibung"
+    },
+    {
+      "id": "zk-worlds-comp",
+      "source": "file",
+      "path": "./docs/ZK-WORLDS-COMP-.md",
+      "description": "Weltensystem im Zeitklingen-Projekt"
+    },
+    {
+      "id": "zk-diff",
+      "source": "file",
+      "path": "./docs/ZK-DIFF-.md",
+      "description": "Differenzanalyse"
+    },
+    {
+      "id": "zk-ver-comp",
+      "source": "file",
+      "path": "./docs/ZK-VER-COMP-.md",
+      "description": "Versionierungsrichtlinien"
+    },
+    {
+      "id": "zk-feat-evoui-comp",
+      "source": "file",
+      "path": "./docs/ZK-FEAT-EVOUI-COMP-.md",
+      "description": "Feature-Spezifikation: Evolution Interface"
+    },
+    {
+      "id": "zk-class-war-comp",
+      "source": "file",
+      "path": "./docs/ZK-CLASS-WAR-COMP-.md",
+      "description": "Zeitwächter-Klassenübersicht"
+    },
+    {
+      "id": "zk-class-rog-cards",
+      "source": "file",
+      "path": "./docs/ZK-CLASS-ROG-CARDS-.md",
+      "description": "Schattenschreiter-Kartenübersicht"
+    },
+    {
+      "id": "zk-dok-comp",
+      "source": "file",
+      "path": "./docs/ZK-DOK-COMP-.md",
+      "description": "Dokumentationsstruktur"
+    },
+    {
+      "id": "zk-mat-comp",
+      "source": "file",
+      "path": "./docs/ZK-MAT-COMP-.md",
+      "description": "Material- und Komponentenstruktur"
+    },
+    {
+      "id": "zk-worlds",
+      "source": "file",
+      "path": "./docs/ZK-WORLDS-.md",
+      "description": "Weltensystem Übersicht"
+    },
+    {
+      "id": "zk-class-rog-comp",
+      "source": "file",
+      "path": "./docs/ZK-CLASS-ROG-COMP-.md",
+      "description": "Schattenschreiter-Klassenbeschreibung"
+    },
+    {
+      "id": "zk-evo",
+      "source": "file",
+      "path": "./docs/ZK-EVO-.md",
+      "description": "Evolutionsmechanik"
+    },
+    {
+      "id": "zk-tech-comp",
+      "source": "file",
+      "path": "./docs/ZK-TECH-COMP-.md",
+      "description": "Technisches Designleitbild"
+    }
+  ]
+}
